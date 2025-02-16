@@ -2,6 +2,8 @@
 
 A Next.js application for URL shortening functionality.
 
+## Approach 
+- Spin up very basic nextjs app and modify to have a form for user data entry, and a page to retrieve a users links from FastAPI backend. 
 
 ## Requirements
 Create a Next.js UI that allows users to:
@@ -15,6 +17,14 @@ Call fast API backend
 - Jest/Cypress tests
 - Pipeline for deployment
 - Internationalisation of text via i18n 
+- Navigation
+- Footer
+- Metadata
+- Auth
+- Containerise 
+- External error logging
+- Metrics export 
+- SSL 
 
 ### Additional considerations taken not explicitly mentioned in task
 - Mobile view
