@@ -11,6 +11,15 @@ Create a Next.js UI that allows users to:
 
 Call fast API backend 
 
+### Not considered due to time restraints or out of scope
+- Jest/Cypress tests
+- Pipeline for deployment
+- Internationalisation of text via i18n 
+
+### Additional considerations taken not explicitly mentioned in task
+- Mobile view
+- Accessibility 
+
 ## Prerequisites
 - Node.js (version 18 or later)
 - npm, yarn, pnpm, or bun
