@@ -80,11 +80,11 @@ export const UploadWidget = () => {
   }
 
   return (
-    <div className="w-96 p-6 rounded-lg shadow-md bg-stone-200">
-      <h2 className="text-2xl font-bold mb-6 text-center">URL Shortener</h2>
+    <div className="w-96 p-6 rounded-lg shadow-lg bg-stone-100">
+      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">URL Shortener</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
             Username
           </label>
           <input
@@ -92,13 +92,13 @@ export const UploadWidget = () => {
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
             required
           />
         </div>
 
         <div>
-          <label htmlFor="url" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="url" className="block text-sm font-medium text-gray-700 mb-1">
             URL to Shorten (Optional)
           </label>
           <input
@@ -109,29 +109,29 @@ export const UploadWidget = () => {
               setUrl(e.target.value);
               setError('');
             }}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200"
           />
         </div>
 
         <div>
-          <label htmlFor="file" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="file" className="block text-sm font-medium text-gray-700 mb-1">
             Optional File Upload
           </label>
           <input
             type="file"
             id="file"
             onChange={handleFileChange}
-            className="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 file:transition-colors file:duration-200"
           />
           {file && (
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-gray-600">
               Selected file: {file.name}
             </p>
           )}
         </div>
 
         {error && (
-          <div className="text-red-500 text-sm mt-2">
+          <div className="text-red-600 text-sm mt-2 bg-red-50 p-2 rounded-md">
             {error}
           </div>
         )}
@@ -139,23 +139,23 @@ export const UploadWidget = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`w-full font-bold py-2 px-4 rounded ${
+          className={`w-full font-bold py-2 px-4 rounded-md transition-all duration-200 ${
             isSubmitting 
-              ? 'bg-blue-300 cursor-not-allowed' 
-              : 'bg-blue-500 hover:bg-blue-700 text-white'
+              ? 'bg-blue-300 cursor-not-allowed text-gray-500' 
+              : 'bg-blue-500 hover:bg-blue-600 text-white hover:shadow-md'
           }`}
         >
           {isSubmitting ? 'Submitting...' : 'Submit'}
         </button>
 
         {shortUrl && (
-          <div className="mt-4 text-center">
-            <p className="text-sm font-medium text-gray-700">Short URL:</p>
+          <div className="mt-4 text-center bg-blue-50 p-3 rounded-md">
+            <p className="text-sm font-medium text-gray-700 mb-2">Short URL:</p>
             <a 
               href={shortUrl} 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="text-blue-600 hover:underline break-all"
+              className="text-blue-700 hover:text-blue-900 hover:underline break-all font-semibold"
             >
               {shortUrl}
             </a>
