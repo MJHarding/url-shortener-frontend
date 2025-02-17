@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { getErrorMessage } from '@/utils/utils';
 
-
 export const UploadWidget = () => {
   const [isClient, setIsClient] = useState(false);
   const [username, setUsername] = useState('');
@@ -12,6 +11,7 @@ export const UploadWidget = () => {
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [shortUrl, setShortUrl] = useState('');
 
   useEffect(() => {
     setIsClient(true);
@@ -36,23 +36,30 @@ export const UploadWidget = () => {
     // Clear any previous errors
     setError('');
     setIsSubmitting(true);
+    setShortUrl('');
 
     try {
+      let response;
       if (file) {
         const formData = new FormData();
         formData.append('username', username);
         formData.append('file', file);
 
-        await axios.post(`http://localhost:8000/upload/?username=${encodeURIComponent(username)}`, formData, {
+        response = await axios.post(`http://localhost:8000/upload/?username=${encodeURIComponent(username)}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
       }
 
       if (url) {
-        await axios.post('http://localhost:8000/shorten/url/', {
+        response = await axios.post('http://localhost:8000/shorten/url/', {
           "username": username,
           "full_url": url
         });
+      }
+
+      // Set short URL if available in response
+      if (response?.data?.short_url) {
+        setShortUrl(response.data.short_url);
       }
 
       // Reset form after successful submission
@@ -61,7 +68,8 @@ export const UploadWidget = () => {
       setFile(null);
       setError('');
     } catch (err: unknown) {
-      getErrorMessage(err);
+      const errorMessage = getErrorMessage(err);
+      setError(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -139,6 +147,20 @@ export const UploadWidget = () => {
         >
           {isSubmitting ? 'Submitting...' : 'Submit'}
         </button>
+
+        {shortUrl && (
+          <div className="mt-4 text-center">
+            <p className="text-sm font-medium text-gray-700">Short URL:</p>
+            <a 
+              href={shortUrl} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-blue-600 hover:underline break-all"
+            >
+              {shortUrl}
+            </a>
+          </div>
+        )}
       </form>
     </div>
   );
